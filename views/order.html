@@ -1,0 +1,171 @@
+<div id="wrapper">
+    <!-- SIDEBAR -->
+    <div class="sidebar" ng-controller="CommonCtrl">
+      <div class="brand">
+        <a href="index.html"><img src="assets/img/logo.png" alt="Logo" class="img-responsive logo"></a>
+      </div>
+      <div class="sidebar-scroll">
+        <nav>
+          <ul class="nav">
+            <li><a href="#dashboard" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+            <li ng-if="user.userrole == 'admin'"><a href="#order" class=""><i class="fa fa-calendar"></i> <span>Order</span></a></li>
+            <li ng-if="user.userrole == 'admin'"><a href="#product" class=""><i class="lnr lnr-chart-bars"></i> <span>Product</span></a></li>
+            <li ng-if="user.userrole == 'sales_person'"><a href="#new_order" class=""><i class="lnr lnr-cog"></i> <span>Create Order</span></a></li>
+            <li ng-if="user.userrole == 'admin'"><a href="#user" class=""><i class="lnr lnr-user"></i> <span>User Management</span></a></li>
+          
+          </ul>
+        </nav>
+      </div>
+      <!--<a class="footer" href="#" title="Twitter share" target="_blank"><i class="fa fa-twitter"></i> <span>SHARE THIS FREEBIE</span></a>-->
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- MAIN -->
+    <div class="main" ng-controller="CommonCtrl">
+      <!-- NAVBAR -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-btn">
+            <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu">
+              <span class="sr-only">Toggle Navigation</span>
+              <i class="fa fa-bars icon-nav"></i>
+            </button>
+          </div>
+          <div id="navbar-menu" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-left hidden-xs">
+              <div class="input-group">
+                <input type="text" value="" class="form-control" placeholder="Search dashboard...">
+                <span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+              </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+                  <i class="lnr lnr-alarm"></i>
+                  <span class="badge bg-danger">1</span>
+                </a>
+                <ul class="dropdown-menu notifications">
+                  <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Lorem Ipsum is simply</a></li>
+                  
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png" class="img-circle" alt="Avatar"> <span>{{user.name}}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                  <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
+                  <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
+                  <li><a ng-click="logout()"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- END NAVBAR -->
+      <!-- MAIN CONTENT -->
+      <div class="main-content">
+        <div class="container-fluid">
+          <!-- OVERVIEW -->
+              <div>
+                  <div class="table-responsive">
+                      <table class="table project-table">
+                        <thead>
+                          <tr>
+                            <th>Client Name</th>
+                            <th>Product details</th>
+                            <th>Quantity</th>
+                            <th>Dispatch date</th>
+                            <th>Rate</th>
+                            <th>Price</th>
+                            <th>Dispatch</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><a href="#">Spot Media</a></td>
+                            <td>
+                              <p>Lorem Ipsum is simply</p>
+                            </td>
+                            <td><a href="#">100</a></td>
+                            <td><span>02/02/2017</span></td>
+                            <td><span>100.00</span></td>
+                            <td><span>10.00</span></td>
+                            <td><span><input type="checkbox"></span></td>
+                          </tr>
+                          <tr>
+                            <td><a href="#">E-Commerce Site</a></td>
+                            <td>
+                              <p>Lorem Ipsum is simply</p>
+                            </td>
+                            <td> <a href="#">200</a></td>
+                            <td><span>03/02/2017</span></td>
+                            <td><span>100.00</span></td>
+                            <td><span>10.00</span></td>
+                            <td><span><input type="checkbox"></span></td>
+                          </tr>
+                          <tr>
+                            <td><a href="#">Project 123GO</a></td>
+                            <td>
+                              <p>Lorem Ipsum is simply</p>
+                            </td>
+                            <td> <a href="#">200</a></td>
+                            <td><span>04/02/2017</span></td>
+                            <td><span>100.00</span></td>
+                            <td><span>10.00</span></td>
+                            <td><span><input type="checkbox"></span></td>
+                          </tr>
+                          <tr>
+                            <td><a href="#">Wordpress Theme</a></td>
+                            <td>
+                            <p>Lorem Ipsum is simply</p>
+                            </td>
+                            <td> <a href="#">100</a></td>
+                            <td><span>05/02/2017</span></td>
+                            <td><span>100.00</span></td>
+                            <td><span>10.00</span></td>
+                            <td><span><input type="checkbox"></span></td>
+                          </tr>
+                          <tr>
+                            <td><a href="#">Project 123GO</a></td>
+                            <td>
+                            <p>Lorem Ipsum is simply</p>
+                            </td>
+                            <td><a href="#">200</a></td>
+                            <td><span>06/02/2017</span></td>
+                            <td><span>100.00</span></td>
+                            <td><span>10.00</span></td>
+                            <td><span><input type="checkbox"></span></td>
+                          </tr>
+                          <tr>
+                            <td><a href="#">Redesign Landing Page</a></td>
+                            <td>
+                              <p>Lorem Ipsum is simply</p>
+                            </td>
+                            <td> <a href="#">188</a></td>
+                            <td><span>07/02/2017</span></td>
+                            <td><span>100.00</span></td>
+                            <td><span>10.00</span></td>
+                            <td><span><input type="checkbox"></span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>   
+              </div>
+          <!-- END OVERVIEW -->
+        </div>
+      </div>
+      <!-- END MAIN CONTENT -->
+      <footer>
+        <div class="container-fluid">
+          <p class="copyright">&copy; 2017. Designed &amp; Crafted by <a href="#">Vendor</a></p>
+        </div>
+      </footer>
+    </div>
+    <!-- END MAIN -->
+  </div>
+  <!-- END WRAPPER -->
+
+  

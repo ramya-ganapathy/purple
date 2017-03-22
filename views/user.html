@@ -1,0 +1,194 @@
+<div id="wrapper">
+    <!-- SIDEBAR -->
+    <div class="sidebar" ng-controller="CommonCtrl">
+      <div class="brand">
+        <a href="index.html"><img src="assets/img/logo.png" alt="Logo" class="img-responsive logo"></a>
+      </div>
+      <div class="sidebar-scroll">
+        <nav>
+          <ul class="nav">
+            <li><a href="#dashboard" class="active"><i class="lnr lnr-home"></i> <span>Dashboard</span></a></li>
+            <li ng-if="user.userrole == 'admin'"><a href="#order" class=""><i class="fa fa-calendar"></i> <span>Order</span></a></li>
+            <li ng-if="user.userrole == 'admin'"><a href="#product" class=""><i class="lnr lnr-chart-bars"></i> <span>Product</span></a></li>
+            <li ng-if="user.userrole == 'sales_person'"><a href="#new_order" class=""><i class="lnr lnr-cog"></i> <span>Create Order</span></a></li>
+            <li ng-if="user.userrole == 'admin'"><a href="#user" class=""><i class="lnr lnr-user"></i> <span>User Management</span></a></li>
+          
+          </ul>
+        </nav>
+      </div>
+      <!--<a class="footer" href="#" title="Twitter share" target="_blank"><i class="fa fa-twitter"></i> <span>SHARE THIS FREEBIE</span></a>-->
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- MAIN -->
+    <div class="main" ng-controller="CommonCtrl">
+      <!-- NAVBAR -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-btn">
+            <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
+          </div>
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu">
+              <span class="sr-only">Toggle Navigation</span>
+              <i class="fa fa-bars icon-nav"></i>
+            </button>
+          </div>
+          <div id="navbar-menu" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-left hidden-xs">
+              <div class="input-group">
+                <input type="text" value="" class="form-control" placeholder="Search dashboard...">
+                <span class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+              </div>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle icon-menu" data-toggle="dropdown">
+                  <i class="lnr lnr-alarm"></i>
+                  <span class="badge bg-danger">1</span>
+                </a>
+                <ul class="dropdown-menu notifications">
+                  <li><a href="#" class="notification-item"><span class="dot bg-warning"></span>Lorem Ipsum is simply</a></li>
+                  
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png" class="img-circle" alt="Avatar"> <span>{{user.name}}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                  <li><a href="#"><i class="lnr lnr-envelope"></i> <span>Message</span></a></li>
+                  <li><a href="#"><i class="lnr lnr-cog"></i> <span>Settings</span></a></li>
+                  <li><a ng-click="logout()"><i class="lnr lnr-exit"></i> <span>Logout</span></a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- END NAVBAR -->
+      <!-- MAIN CONTENT -->
+      <div class="main-content">
+        <div class="container-fluid">
+          <div class="row">
+            <h1>User <a style="font-size: 14px;" data-toggle="modal" data-target="#NewModal">Add</a></h1>
+            <hr/>
+          </div>
+
+          <!-- OVERVIEW -->
+              <div>
+                  <div class="table-responsive">
+                      <table class="table project-table">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-if="!users.length">
+                            <td colspan="5">No Results found!</td>
+                          </tr>
+                          <tr ng-if="users.length" ng-repeat="(k,usr) in users">
+                            <td ng-bind="k+1"></td>
+                            <td ng-bind="usr.name"></td>
+                            <td ng-bind="usr.username"></td>
+                            <td ng-bind="usr.email"></td>
+                            <td>
+                              <span ng-if="usr.userrole == 'admin'">Admin</span>
+                              <span ng-if="usr.userrole == 'sales_person'">Sales Person</span>
+                              <span ng-if="usr.userrole == 'vendor'">Vendor</span>
+                            </td>
+                            <td>
+                              <span ng-if="usr.status == 1">Active</span>
+                              <span ng-if="usr.status == 0">Inactive</span>
+                            </td>
+                            <td><i class="lnr lnr-pencil"></i>&nbsp;&nbsp;<i class="lnr lnr-trash"></i></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>   
+              </div>
+          <!-- END OVERVIEW -->
+        </div>
+      </div>
+      <!-- END MAIN CONTENT -->
+      <footer>
+        <div class="container-fluid">
+          <p class="copyright">&copy; 2017. Designed &amp; Crafted by <a href="#">Vendor</a></p>
+        </div>
+      </footer>
+    </div>
+    <!-- END MAIN -->
+  </div>
+  <!-- END WRAPPER -->
+
+  <div id="NewModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">New User</h4>
+      </div>
+      <div class="modal-body">
+        <div class="tab-pane fade in active" id="tab-bottom-left1">
+            <form name="newform" class="form-horizontal">
+             <div class="form-group">
+                 <label class="control-label col-sm-4" for="name">Name:</label>
+                 <div class="col-sm-8">
+                    <input type="text" required="" ng-model="ur.name" class="form-control" id="name">
+                 </div>
+             </div>
+             <div class="form-group">
+                 <label class="control-label col-sm-4" for="name">Username:</label>
+                 <div class="col-sm-8">
+                    <input type="text" required ng-model="ur.username" class="form-control" id="name">
+                 </div>
+             </div>
+             <div class="form-group">
+                 <label class="control-label col-sm-4" for="details">Email:</label>
+                 <div class="col-sm-8">
+                    <input type="email" required ng-model="ur.email" class="form-control" id="name" >
+                 </div>
+             </div>
+             <div class="form-group">
+                 <label class="control-label col-sm-4" for="quantity">Password:</label>
+                 <div class="col-sm-8">
+                    <input type="password" required ng-model="meeting.password" class="form-control" id="quantity">
+                 </div>
+             </div>
+             <div class="form-group">
+                 <label class="control-label col-sm-4" for="quantity">Role:</label>
+                 <div class="col-sm-8">
+                    <select ng-model="ur.userrole">
+                      <option value="admin">Admin</option>
+                      <option value="sales_person">Sales Person</option>
+                      <option value="vendor">Vendor</option>
+                    </select>
+                 </div>
+             </div>
+             <div class="form-group">
+                 <label class="control-label col-sm-4" for="quantity">Status:</label>
+                 <div class="col-sm-8">
+                    <select ng-model="ur.status">
+                      <option value="1">Active</option>
+                      <option value="0">InActive</option>
+                    </select>
+                 </div>
+             </div>
+         </form>    
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" ng-click="add_user()">Submit</button>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,567 @@
+<div role="main" class="right_col" style="min-height: 729px;"> 
+      <!-- top tiles -->
+      <div class="row tile_count">
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        
+          <div class="row">
+            <div class="upload">
+              
+              <form name="venue_form" novalidate class="form-horizontal form-label-left" ng-submit="add_venue()">
+                
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h2>Add a venue</h2>
+                </div>
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <input required ng-model="venue.venue_name" type="text" placeholder="Venue Name" class="form-control">
+                </div>
+                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <textarea required ng-model="venue.venue_description" placeholder="Description" class="form-control"></textarea>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <h3 class="address">Address</h3>
+                </div>
+                <div class="form-group col-lg-6 col-md-4 col-sm-4 col-xs-12">
+                  <input required ng-model="venue.address_door_no" type="text" placeholder="Door no" class="form-control">
+                </div>
+                <div class="form-group col-lg-6 col-md-4 col-sm-4 col-xs-12">
+                  <input required ng-model="venue.address_street" type="text" placeholder="Street Name" class="form-control">
+                </div>
+
+                <!-- <div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                  <input ng-model="venue.address_county" type="text" placeholder="County" class="form-control">
+                </div> -->
+                
+                <!-- <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <input ng-model="venue.address_town" type="text" placeholder="Town" class="form-control">
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <input required ng-model="venue.address_city" type="text" placeholder="City" class="form-control">
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <input required ng-model="venue.address_country" type="text" placeholder="Country" class="form-control">
+                </div>-->
+                
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <input gm-places-autocomplete="autocompleteOptions" ng-model="venue.address_location" type="text" placeholder="Location" class="form-control">
+                </div>
+                
+                
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <input required ng-model="venue.address_postcode" type="text" placeholder="Postcode" ng-pattern="/^0|[1-9][0-9]*$/"  class="form-control">
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <h4 class="address">Contact</h4>
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <input required ng-model="venue.contact_name" type="text" placeholder="Contact name" class="form-control">
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" >
+                  <input required ng-model="venue.contact_email" type="email" placeholder="Email Address" class="form-control">
+                </div>
+                
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    
+                   <div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:0;">
+                    <select required ng-model="venue.contact_mobile_country_code" class="form-control" >
+                      <option value="">Country</option>
+                      <option ng-repeat="codes in allCountryWithCode" value="{{codes.code}}">{{codes.name}}</option>
+                    </select>
+                   </div>
+               
+               	   <div class="col-lg-8 col-md-8 col-sm-8" style="padding-left:0; padding-right:0;">
+             			<input type="text" class="form-control" placeholder="Mobile" ng-model="venue.contact_mobile" required ng-pattern="/^0|[1-9][0-9]*$/" >  
+                   </div>
+                   
+                </div>
+                
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12" style="display:none;" >
+                  
+                   <div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:0;">
+                    <select ng-model="venue.contact_landline_country_code" class="form-control" >
+                      <option value="">Country</option>
+                      <option ng-repeat="codes in allCountryWithCode" value="{{codes.code}}">{{codes.name}}</option>
+                    </select>
+
+                   </div>
+                   
+               	  <div class="col-lg-8 col-md-8 col-sm-8" style="padding-left:0; padding-right:0;">
+             			<input type="text" class="form-control" placeholder="Phone" ng-model="venue.contact_landline" ng-pattern="/^0|[1-9][0-9]*$/" >  
+                  </div>
+             
+                </div>
+                
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <select required ng-model="venue.currency" class="form-control" >
+                    <option value="">Select Currency</option>
+                    <option value="INR">INR</option>
+                    <option value="USD">USD</option>
+                    <option value="GBP">GBP</option>
+                    <option value="EUR">EUR</option>
+                  </select>
+                </div>
+                <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <select multiple required ng-model="venue.sport_details" class="form-control" >
+                    <option value="">Select Sports</option>
+                    <option ng-repeat="sport in sports" value="{{sport.id}}">{{sport.sport_name}}</option>
+                  </select>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0;">
+                <h2>  Cost (Enter Monthly or Annual cost) </h2>
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Start Month</th>
+                      <th>End Month</th>
+                      <th>Cost/hr</th>
+                      <th>Cost/day</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="cost in venue.cost_details">
+                      <td><div class="form-group">
+                          <select readonly ng-model="venue.cost_details[$index].from_month" class="form-control" >
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                          </select>
+                        </div></td>
+                      <td><div class="form-group">
+                          <select ng-model="venue.cost_details[$index].to_month" class="form-control" ng-change="validate_cost(venue.cost_details, $index)">
+                            <option ng-hide="venue.cost_details[$index].from_month > 1" value="1">January</option>
+                            <option ng-hide="venue.cost_details[$index].from_month > 2" value="2">February</option>
+                            <option ng-hide="venue.cost_details[$index].from_month > 3" value="3">March</option>
+                            <option ng-hide="venue.cost_details[$index].from_month > 4" value="4">April</option>
+                            <option ng-hide="venue.cost_details[$index].from_month > 5" value="5">May</option>
+                            <option ng-hide="venue.cost_details[$index].from_month > 6" value="6">June</option>
+                            <option ng-hide="venue.cost_details[$index].from_month > 7" value="7">July</option>
+                            <option ng-hide="venue.cost_details[$index].from_month > 8" value="8">August</option>
+                            <option ng-hide="venue.cost_details[$index].from_month > 9" value="9">September</option>
+                            <option ng-hide="venue.cost_details[$index].from_month > 10" value="10">October</option>
+                            <option ng-hide="venue.cost_details[$index].from_month > 11" value="11">November</option>
+                            <option ng-hide="venue.cost_details[$index].from_month > 12" value="12">December</option>
+                          </select>
+                        </div></td>
+                      <td><div class="form-group">
+                          <input ng-model="venue.cost_details[$index].cost" ng-pattern="/^0|[1-9][0-9]*$/"  type="text" style="width:50px;" placeholder="" class="form-control">
+                        </div></td>
+                      <td><div class="form-group">
+                          <input ng-model="venue.cost_details[$index].cost_per_day" ng-pattern="/^0|[1-9][0-9]*$/"  type="text" style="width:50px;" placeholder="" class="form-control">
+                        </div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+
+              </div>
+              
+
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <ul class="nav nav-tabs" ng-init="current_tab='available'" style="margin-top:10px;">
+    <li ng-class="{active:current_tab=='available' }" ng-click="current_tab='available'"><a>Dates</a></li>
+    <li ng-class="{active:current_tab=='gallery' }" style="opacity:0.5;"><a>Facility & Gallery</a></li>
+    </ul>
+  <div class="tab-content" style="margin-top:10px;">
+    <div ng-show="current_tab=='available'" class="tab-pane fade in active">
+       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0;">
+                <h2 style="margin-top:0px;"> Venue Available Months</h2>
+                <table class="table table-bordered check-center">
+                  <thead>
+                    <tr>
+                      <th style="color: #BC3321;">All</th>
+                      <th>Jan</th>
+                      <th>Feb</th>
+                      <th>Mar</th>
+                      <th>Apr</th>
+                      <th>May</th>
+                      <th>June</th>
+                      <th>July </th>
+                      <th>Aug</th>
+                      <th>Sept</th>
+                      <th>Oct</th>
+                      <th>Nov</th>
+                      <th>Dec</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+
+                      <td> <input ng-model="venue.available_months.allf" ng-click="checkAll();" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_months.jan" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_months.feb" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_months.mar" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_months.apr" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_months.may" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_months.june" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_months.july" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_months.aug" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_months.sept" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_months.oct" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_months.nov" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_months.dece" type="checkbox"> </td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0;">
+                <h2 style="margin-top:0px;"> Venue Available Days </h2>
+                <table class="table table-bordered check-center">
+                  <thead>
+                    <tr>
+                      <th style="color: #BC3321;">All</th>
+                      <th>Sunday</th>
+                      <th>Monday</th>
+                      <th>Tuesday</th>
+                      <th>Wednesday</th>
+                      <th>Thursday</th>
+                      <th>Friday</th>
+                      <th>Saturday</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+
+                      <td> <input ng-model="venue.available_days.allf" ng-click="checkAllDays();" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_days.sun" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_days.mon" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_days.tue" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_days.wed" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_days.thu" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_days.fri" type="checkbox"> </td>
+                      <td> <input ng-model="venue.available_days.sat" type="checkbox"> </td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              
+              <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0; float:right;">
+                  <button class="btn btn-primary">Cancel</button>
+                  <button class="btn btn-success" type="submit" id="send">Save & Proceed</button>
+              </div>
+              
+              
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      
+    </div>
+    
+    
+  </div>
+             
+              
+
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <hr style="margin-top:15px; margin-bottom:10px;">
+              </div>
+              
+              
+
+              </form>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" ng-if="active_state == 'ground'">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <h2>Facility</h2>
+              <h4 style="margin-bottom:10px; display:inline-block; width:100%;"><span style="font-size:16px; font-weight:600;" data-target="#myModal1" data-toggle="modal" class="add-row" ng-click="editmode = false  ;">Add Facility <i aria-hidden="true" class="fa fa-plus-square"></i></span></h4>
+              <div class="facility_table">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th></th>
+                      <th>Facility Name</th>
+                      <th>Cost</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="fac in venue_facilities">
+                      <td>{{$index+1}}</td>
+                      <td><img ng-src="{{fac[0].facility_logo}}" width="50"></td>
+                      <td>{{fac[0].facility_name}}</td>
+                      <td><div ng-repeat="f in fac">{{months[f.from_month]}} to {{months[f.to_month]}} - {{f.cost}}</div></td>
+                      <td>
+                        <span data-target="#myModal1" data-toggle="modal" ><i class="fa fa-pencil" ng-click="venue_facility.cost_details = fac;venue_facility.facility_id = fac[0].facility_id;$parent.editmode = true;"></i></span>
+                        <span ng-click="delete_facility(fac[0].facility_id)" class="delete-row"><i aria-hidden="true" class="fa fa-trash-o"></i></span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <h2>Add Image Gallery</h2>
+              <ul class="fi-ly facillti">
+                <li ng-click="search.facility_id = '0';" ng-class="{active_facility: search.facility_id == '0'}"><img ng-src="images/venue.png"></li>
+                <li ng-repeat="fac in venue_facilities" ng-click="$parent.search.facility_id = fac[0].facility_id;" ng-class="{active_facility: search.facility_id == fac[0].facility_id}">
+                  <img ng-src="{{fac[0].facility_logo}}">
+                </li>
+
+                <span ng-click="venue_image.facility_id = 0;" data-target="#myModal2" data-toggle="modal" style="float:right; margin-top:8px; display:block;" class="add-row"><i aria-hidden="true" class="fa fa-plus-square"></i></span>
+              </ul>
+              <div class="img-gallery">
+              <ul class="fi-ly">
+                <li ng-repeat="imgs in venue_images | filter:search"><div class="gal-img"><img src="//zenstill.com/findavenue/api{{imgs.media_location}}"><div class="delete-img" ng-click="delete_image(imgs.id)"><i aria-hidden="true" class="fa fa-trash-o"></i></div></div></li>
+                </ul>
+              </div>
+            </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> 
+              <h2>Blocked Dates</h2>
+                <div class="well well-sm">
+                  <calendar ng-model="currentDate" calendar-mode="mode" ng-if="eventSource" event-source="eventSource" range-changed="reloadSource(startTime, endTime);" event-selected="onEventSelected(event)" time-selected="onTimeSelected(selectedTime)">                          
+                  </calendar>                                                    
+                </div>               
+              </div>
+              
+              
+              <!-- Modal Facility-->
+             <div role="dialog" id="blockdatemodal" class="modal fade">
+              <div class="modal-dialog"> 
+                
+                <!-- Modal content Facility-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">Add Blocked dates</h4>
+                  </div>
+                  <div class="modal-body">
+                   
+                    <div class="">
+                      <div class="form-group">
+                       <textarea ng-class="reason" ng-model="block.reason"  class="form-control" placeholder="Reason for block"></textarea>
+                      </div>
+                      <div  class="form-group">
+                       <input ng-class="block_date"  ng-model="block.date" type="text" placeholder="Block on" class="form-control" jqdatepicker/>
+                      </div>
+                       <div>
+                       <input type="checkbox" ng-model="block.recurrence" /> Is Recurring
+                       <hr ng-show="block.recurrence"><h4 ng-show="block.recurrence">Recurrence by</h4>
+                       <div ng-show="block.recurrence" class="recurring-details">
+                         <input type="radio" name="recurring_type" ng-model="block.recurring_type" value="daily"> Daily
+                         <input type="radio" name="recurring_type" ng-model="block.recurring_type" value="weekly"> Weekly
+                         <input type="radio" name="recurring_type" ng-model="block.recurring_type" value="monthly"> Monthly
+                       </div>
+                       <br>
+                       </div>
+                    </div>
+
+                    <div ng-show="block.recurrence && block.recurring_type == 'daily'">
+                      <p>Recur every <input ng-class="daily_recurrence" type="number" ng-model="block.daily_recurrence.recurrence_by"> day(s)</p>
+                    </div>
+
+                    <div ng-show="block.recurrence && block.recurring_type == 'weekly'">
+                        <p>Recur every <input ng-class="weekly_recurrence" type="number" ng-model="block.weekly_recurrence.recurrence_by"> week(s) on</p>
+                        <p ng-class="weeks_chk">
+                        <input type="checkbox" name="recurring_weekly[]" ng-model="block.weekly_recurrence.recurrence_on[0]" /> Sunday
+                        <input type="checkbox" name="recurring_weekly[]" ng-model="block.weekly_recurrence.recurrence_on[1]" /> Monday
+                        <input type="checkbox" name="recurring_weekly[]" ng-model="block.weekly_recurrence.recurrence_on[2]" /> Tuesday
+                        <input type="checkbox" name="recurring_weekly[]" ng-model="block.weekly_recurrence.recurrence_on[3]" /> Wednesday
+                        <input type="checkbox" name="recurring_weekly[]" ng-model="block.weekly_recurrence.recurrence_on[4]" > Thursday
+                        <input type="checkbox" name="recurring_weekly[]" ng-model="block.weekly_recurrence.recurrence_on[5]" > Friday
+                        <input type="checkbox" name="recurring_weekly[]" ng-model="block.weekly_recurrence.recurrence_on[6]"> Saturday </p>
+
+                  </div>
+
+                  <div ng-show="block.recurrence && block.recurring_type == 'monthly'">
+                      <p>Recur day 
+                      <select ng-class="monthly_recurrence_day" ng-model="block.monthly_recurrence.recurrence_day">
+                        <option ng-repeat="dd in no_of_days_in_month track by $index">{{$index+1}}</option>
+                      </select>
+                      of every <input ng-class="monthly_recurrence_month" type="number" ng-model="block.monthly_recurrence.recurrence_month"> month(s)</p>
+                  </div>
+                  <hr ng-show="block.recurrence && block.recurring_type"><h4 ng-show="block.recurrence && block.recurring_type">Recurrence End by</h4>
+                  <div ng-show="block.recurrence && block.recurring_type" class="row">
+                        <div class="col-lg-5">
+                          <label>Date: {{block.recurrence_end_by.end_date}}</label>
+                          <input type="text" name="enddate" ng-model="block.recurrence_end_by.end_date" class="form-control" ng-class="end_date" jqdatepicker />
+                        </div>
+                        <div class="col-lg-2">Or</div>
+                        <div class="col-lg-5">
+                          <label>No. of occurence:</label>
+                          <input type="text" ng-class="end_date" class="form-control" ng-model="block.recurrence_end_by.no_of_occurence" >
+                        </div>
+                  </div>
+
+                  <div><br/>
+                    <button data-dismiss="modal" class="btn btn-primary" type="reset">Cancel</button>
+                    <button class="btn btn-success" ng-click="save_blocked_date();"  type="submit" id="send">Submit</button>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+            </div>
+            
+              <!-- Unblock model-->
+            <div role="dialog" id="unblockdatemodal" class="modal fade">
+              <div class="modal-dialog"> 
+                
+                <!-- Modal content Facility-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">Unblocked Date</h4>
+                  </div>
+                  <div class="modal-body">
+                  
+				   
+                  <h4>Reason for block</h4>
+                  <div class="row">
+                  <div class="col-lg-12 colmd-12 col-sm-12 col-xs-12">
+                  	<p> {{blockedInfo.reason}}</p>
+                  </div></div>
+				   <hr>
+                   
+                  <h4 ng-if="blockedInfo.type == 'single'">Blocked Date</h4>
+                  <h4 ng-if="blockedInfo.type == 'grouped'">Blocked Dates</h4>
+                  <div class="row">
+                  <div class="col-lg-12 colmd-12 col-sm-12 col-xs-12">
+                  	<span  ng-repeat="cdate in blockedInfo.dates" style="background:#40AC57; color:#fff; padding: 4px 10px; margin:0 5px;">{{cdate}}</span>
+                  </div> 
+                  </div>
+                  <hr>
+                 
+                  <div><br/>
+                    <button data-dismiss="modal" class="btn btn-primary" type="reset">Cancel</button>
+                    <button class="btn btn-success" ng-click="Unblock_the_date('single');" >Unblock Day</button>
+                    <button ng-if="blockedInfo.type == 'grouped'" class="btn btn-success"
+                     ng-click="Unblock_the_date('grouped');" >Unblock series</button>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+            </div>
+
+
+            <!-- Modal Facility-->
+            <div role="dialog" id="myModal1" class="modal fade">
+              <div class="modal-dialog"> 
+                
+                <!-- Modal content Facility-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title"> Choose our Facility</h4>
+                  </div>
+                  <div class="modal-body">
+                    <ul class="fi-ly facillti">
+                      <li ng-repeat="fc in facility" ng-class="{active_facility: venue_facility.facility_id == fc.id, selected_facility: (is_selected_speciality(fc.id) && !editmode)}" >
+                        <span ng-show="!editmode">
+                          <img ng-click="$parent.venue_facility.facility_id = fc.id;" ng-show="fc.facility_logo && !is_selected_speciality(fc.id)" ng-src="{{fc.facility_logo}}">
+                          <img ng-click="$parent.venue_facility.facility_id = fc.id;" ng-show="!fc.facility_logo && !is_selected_speciality(fc.id)" ng-src="{{'images/fc'+fc.id+'.png'}}">
+                          <img ng-show="fc.facility_logo && is_selected_speciality(fc.id)" ng-src="{{fc.facility_logo}}">
+                          <img ng-show="!fc.facility_logo && is_selected_speciality(fc.id)" ng-src="{{'images/fc'+fc.id+'.png'}}">
+                        </span>
+                        <span ng-show="editmode">
+                          <img ng-show="fc.facility_logo" ng-src="{{fc.facility_logo}}">
+                          <img ng-show="!fc.facility_logo" ng-src="{{'images/fc'+fc.id+'.png'}}">
+                        </span>
+                      </li>
+                    </ul>
+                    <table class="table table-bordered" ng-show="venue_facility.facility_id">
+                      <thead>
+                        <tr>
+                          <th>Start Month</th>
+                          <th>End Month</th>
+                          <th>Cost</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="cost in venue_facility.cost_details">
+                          <td><div class="form-group">
+                              <select  readonly ng-model="venue_facility.cost_details[$index].from_month" class="form-control" >
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                              </select>
+                            </div></td>
+                          <td><div class="form-group">
+                              <select ng-model="venue_facility.cost_details[$index].to_month" class="form-control" ng-change="validate_cost(venue_facility.cost_details, $index)">
+                            <option ng-hide="venue_facility.cost_details[$index].from_month > 1" value="1">January</option>
+                            <option ng-hide="venue_facility.cost_details[$index].from_month > 2" value="2">February</option>
+                            <option ng-hide="venue_facility.cost_details[$index].from_month > 3" value="3">March</option>
+                            <option ng-hide="venue_facility.cost_details[$index].from_month > 4" value="4">April</option>
+                            <option ng-hide="venue_facility.cost_details[$index].from_month > 5" value="5">May</option>
+                            <option ng-hide="venue_facility.cost_details[$index].from_month > 6" value="6">June</option>
+                            <option ng-hide="venue_facility.cost_details[$index].from_month > 7" value="7">July</option>
+                            <option ng-hide="venue_facility.cost_details[$index].from_month > 8" value="8">August</option>
+                            <option ng-hide="venue_facility.cost_details[$index].from_month > 9" value="9">September</option>
+                            <option ng-hide="venue_facility.cost_details[$index].from_month > 10" value="10">October</option>
+                            <option ng-hide="venue_facility.cost_details[$index].from_month > 11" value="11">November</option>
+                            <option ng-hide="venue_facility.cost_details[$index].from_month > 12" value="12">December</option>
+                              </select>
+                            </div></td>
+                          <td><div class="form-group">
+                              <input ng-model="venue_facility.cost_details[$index].cost" type="text" style="width:50px;" placeholder="" class="form-control">
+                            </div></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="modal-footer" ng-show="venue_facility.facility_id">
+                    <button data-dismiss="modal" class="btn btn-primary" type="submit">Cancel</button>
+                    <button ng-click="add_venue_facility()" class="btn btn-success" type="submit" id="send">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Modal image-gallery-->
+            <div role="dialog" id="myModal2" class="modal fade">
+              <div class="modal-dialog"> 
+                
+                <!-- Modal content image-gallery-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button">×</button>
+                    <h4 class="modal-title">Upload images</h4>
+                  </div>
+                   <div class="modal-body">
+                    <select class="form-control" ng-change="isDisabled = false" ng-model="venue_image.facility_id">
+                      <option value="0">{{venue.venue_name}}</option>
+                      <option ng-repeat="fac in venue_facilities" ng-value="fac[0].facility_id">{{fac[0].facility_name}}</option>
+                    </select>
+                    <input id="venue_image" ng-click="isDisabled = false" type="file" style="margin-top:10px; padding:0;" class="form-control">
+                  </div>
+                  <div class="modal-footer">
+                    <button data-dismiss="modal" class="btn btn-primary" type="submit">Cancel</button>
+                    <button  ng-click="isDisabled = true;add_venue_image()();" ng-disabled="isDisabled" class="btn btn-success" type="submit" id="send">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+      </div>
+    </div>

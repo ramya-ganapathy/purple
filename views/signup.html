@@ -1,0 +1,59 @@
+  <div class="login">
+  <div class="col-lg-2 col-md-2 col-sm-2"><div class="clearfix"></div></div>
+  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12" style="margin-top:20%; background:#ddd; margin-bottom:20%;">
+      <h2 class="text-center">Sign up</h2>
+      <form name="signup_form" ng-submit="signup(user, signup_form)"  novalidate="" method="post">
+            <p class="error_message" ng-show="msg" ng-bind="msg"></p>
+               <div class="form-group">
+               <input type="text" class="form-control" placeholder="Name" required ng-model="user.name" name="name"/>
+               </div>
+                <div  class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left:0; padding-right:0;">
+             
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-left:0;">
+                    <select required ng-model="user.mobile_country_code" class="form-control" >
+                      <option value="">Country</option>
+                      <option ng-repeat="codes in allCountryWithCode | orderBy:'shor_name'" value="{{codes.code}}">{{codes.shor_name}}</option>
+                    </select>
+                </div>
+               
+                <div class="col-lg-8 col-md-8 col-sm-8" style="padding-left:0; padding-right:0;">
+               	<input type="text" ng-pattern="/^0|[1-9][0-9]*$/" class="form-control" placeholder="Mobile No" required ng-model="user.mobile" name="mobile"/>
+               	</div>
+               
+             </div>
+                <div class="form-group">
+               <input type="email" class="form-control" placeholder="Email" required ng-model="user.email" name="email"/>
+               </div>
+               <div class="form-group">
+               <input type="password" class="form-control" placeholder="Password" required ng-model="user.password" name="password"/>
+               </div>
+               <div class="form-group">
+               <select class="form-control" ng-model="user.user_role" required="">
+                  <option value="">Select</option>
+                  <option value="user">Site user</option>
+                  <option value="owner">Venue Owner</option>
+               </select>
+               </div>
+               
+              <div class="form-group"> 
+               	<input ng-model="acceptCondition" type="checkbox" name="select"  /> I agree to the <a target="_blank" href="#/terms"> Terms and Conditions </a>
+               </div>
+              <p> 
+                  <span style="margin-top:5px; display: inline-block;width:100%;"> 
+                    <button style="width:100%;" ng-disabled="!acceptCondition"  type="submit" class="btn btn-success"> Sign up </button>
+                  </span> 
+              </p>
+              <p> 
+                  <span style="margin-top:5px; display: inline-block;width:100%;">
+                  	<button style="width:100%;" ng-click="facebookLogin(user.user_role);" class="btn btn-facebook" > Login with facebook </button>
+                  </span> 
+              </p>
+              
+              <p> 
+                  <span class="text-left" style="margin-top:5px; display: inline-block;">
+                  	<a href="#venues/login">Already registered? Login</a>
+                  </span>
+              </p>
+       </form>
+       </div>
+       </div>
